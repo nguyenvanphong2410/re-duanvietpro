@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
     return (
         <>
@@ -6,7 +8,7 @@ const Header = () => {
                 <div className="container">
                     <div className="row">
                         <div id="logo" className="col-lg-3 col-md-3 col-sm-12">
-                            <h1><a href="#"><img className="img-fluid" src="images/logo.png" /></a></h1>
+                            <h1><Link to="/"><img clLinkssName="img-fluid" src="images/logo.png" /></Link></h1>
                         </div>
                         <div id="search" className="col-lg-6 col-md-6 col-sm-12">
                             <form className="form-inline">
