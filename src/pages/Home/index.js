@@ -34,6 +34,7 @@ const Home = () => {
                         
                             <ProductItem
                                 item={value}
+                                key={index}
                             />
                         )
                     }
@@ -49,6 +50,7 @@ const Home = () => {
                         
                             <ProductItem
                                 item={value}
+                                key={index}
                             />
                         )
                     }

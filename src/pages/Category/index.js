@@ -37,9 +37,10 @@ const Category = () => {
                     <h3>{category?.name} (hiện có {totalProduct} sản phẩm)</h3>
                     <div className="product-list card-deck">
                         {
-                            products.map((product) => 
+                            products.map((product, index) => 
                                 <ProductItem 
                                     item = {product}
+                                    key={index}
                                 />
                             )
                         }

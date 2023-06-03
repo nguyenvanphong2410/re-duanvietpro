@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 
 import Category from "./pages/Category";
-import Product from "./pages/Products";
+import ProductDetails from "./pages/ProductDetails";
 import Success from "./pages/Success";
 import Search from "./pages/Search";
 import Page404 from "./pages/Page404";
@@ -49,7 +49,7 @@ function App() {
                   <Route path="/" element={<Home/>} />
                   <Route path="/Cart" element={<Cart/>} />
                   <Route path="/Category-:id" element={<Category/>} />
-                  <Route path="/Product" element={<Product/>} />
+                  <Route path="/ProductDetails-:id" element={<ProductDetails/>} />
                   <Route path="/Success" element={<Success/>} />
                   <Route path="/Search" element={<Search/>} />
                   <Route path="*" element={<Page404/>} />

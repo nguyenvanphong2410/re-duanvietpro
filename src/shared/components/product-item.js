@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import { getImageProduct } from "../ultils";
 
 const ProductItem = ({ item }) => {
     return (
         <div className="product-item card text-center">
-            <a href="#"><img src={getImageProduct(item.image)} /></a>
-            <h4><a href="#">{item.name}</a></h4>
+            <Link to={`/ProductDetails-${item._id}`}><img src={getImageProduct(item.image)} /></Link>
+            <h4><Link to={`/ProductDetails-${item._id}`}>{item.name}</Link></h4>
             <p>Giá Bán: <span>{item.price}</span></p>
         </div>
     )
