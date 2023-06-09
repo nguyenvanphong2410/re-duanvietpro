@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -8,6 +9,11 @@ const Header = () => {
     
     //Sử dụng useNavigate() để chuyển hướng trang;
     const navigate = useNavigate();
+
+    //Tính tổng số trong giỏ hàng
+    const totalCart = useSelector(({Cart}) => {
+        return Cart.items.reduce( (total, item) => total + item.qty, 0);
+    });
 
     //Hàm xử lí Change Input
     const onChangeInput = (e) => {
@@ -49,7 +55,7 @@ const Header = () => {
                             </form>
                         </div>
                         <div id="cart" className="col-lg-3 col-md-3 col-sm-12">
-                            <a className="mt-4 mr-2" href="#">giỏ hàng</a><span className="mt-3">8</span>
+                            <a className="mt-4 mr-2" href="#">giỏ hàng</a><span className="mt-3">{totalCart}</span>
                         </div>
                     </div>
                 </div>

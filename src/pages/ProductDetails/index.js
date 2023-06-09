@@ -1,12 +1,21 @@
 import React, { useEffect } from "react";
-import { createCommentProduct, getCommentsProduct, getProduct } from "../../services/Api";
-import { useParams } from "react-router";
-import { getImageProduct } from "../../shared/ultils";
+
 import moment from "moment";
+
+import { useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { createCommentProduct, getCommentsProduct, getProduct } from "../../services/Api";
+import { getImageProduct } from "../../shared/ultils";
+import { ADD_TO_CART } from "../../shared/constants/action-type";
 
 const ProductDetails = () => {
 
     const params = useParams();
+    const dispatch = useDispatch(); //Dung cho xử lí cart
+    const navigate = useNavigate(); //Dung cho xử lí cart
+
     const id = params.id;
 
     const [products, setProducts] = React.useState(null);
@@ -20,6 +29,26 @@ const ProductDetails = () => {
         //Get Comments
         getComments(id);
     }, [id]);
+
+    //Xử lí khi ấn vào addToCart
+    const addToCart = (type) => {
+        if (products) {
+            const {_id, name, price, image} = products;
+            dispatch({
+                type : ADD_TO_CART,
+                payload: {
+                    _id,
+                    name, 
+                    price,
+                    image,
+                    qty: 1,
+                }
+            })
+        }
+        if (type === "buy-now") {
+            navigate("/Cart");
+        }
+    }
 
     //Viết riêng để cập nhật lại comments khi thêm comments
     const getComments = () => {
@@ -62,7 +91,19 @@ const ProductDetails = () => {
                                 <li id="price-number">{products?.price}</li>
                                 <li id="status">{products?.is_stock ? "Còn hàng" : "Hết hàng"}</li>
                             </ul>
-                            <div id="add-cart"><a href="#">Mua ngay</a></div>
+                            <div id="add-cart">
+                                <button
+                                    onClick={() => addToCart("buy-now")} 
+                                    className="btn btn-warning mr-2">
+                                    Mua ngay
+                                </button>
+
+                                <button 
+                                    onClick={addToCart}
+                                    className="btn btn-info">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div id="product-body" className="row">

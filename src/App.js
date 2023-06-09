@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux-setup/store";
 
 import Header from "./shared/components/layouts/Header";
 import Menu from "./shared/components/layouts/Menu";
@@ -23,49 +25,54 @@ function App() {
   //Tạo state để lưu data đổ ra 
   const [categories, setCategories] = React.useState([]);
 
-  useEffect( () => {
-    getCategories({}).then(({data}) => setCategories(data.data.docs) )
-  },[]) 
+  useEffect(() => {
+    getCategories({}).then(({ data }) => setCategories(data.data.docs))
+  }, [])
 
   return (
-    <BrowserRouter>
-      <div>
-        <Header />
-        {/*	Body	*/}
-        <div id="body">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 col-md-12 col-sm-12">
-                <Menu 
-                  categories = {categories}
-                />
+    <>
+
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <Header />
+            {/*	Body	*/}
+            <div id="body">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12 col-md-12 col-sm-12">
+                    <Menu
+                      categories={categories}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div id="main" className="col-lg-8 col-md-12 col-sm-12">
+                    <Slider />
+
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/Cart" element={<Cart />} />
+                      <Route path="/Category-:id" element={<Category />} />
+                      <Route path="/ProductDetails-:id" element={<ProductDetails />} />
+                      <Route path="/Success" element={<Success />} />
+                      <Route path="/Search" element={<Search />} />
+                      <Route path="*" element={<Page404 />} />
+                    </Routes>
+
+                  </div>
+
+                  <Sidebar />
+                </div>
               </div>
             </div>
-            <div className="row">
-              <div id="main" className="col-lg-8 col-md-12 col-sm-12">
-                <Slider />
-
-                <Routes>
-                  <Route path="/" element={<Home/>} />
-                  <Route path="/Cart" element={<Cart/>} />
-                  <Route path="/Category-:id" element={<Category/>} />
-                  <Route path="/ProductDetails-:id" element={<ProductDetails/>} />
-                  <Route path="/Success" element={<Success/>} />
-                  <Route path="/Search" element={<Search/>} />
-                  <Route path="*" element={<Page404/>} />
-                </Routes>
-
-              </div>
-
-              <Sidebar />
-            </div>
+            {/*	End Body	*/}
+            <Footer />
           </div>
-        </div>
-        {/*	End Body	*/}
-        <Footer />
-      </div>
 
-    </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
+    </>
   );
 }
 
